@@ -1,0 +1,72 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>JSON Song List</title>
+	<script   src="https://code.jquery.com/jquery-3.1.1.min.js"   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="   crossorigin="anonymous"></script>
+	<!--script language="javascript" src="assignment9.json"></script-->
+</head>
+<body>
+
+	<div id="string"></div>
+	<div id="body"></div>
+
+	<script language="javascript">
+
+		$.get("https://raw.githubusercontent.com/stepri2020/assignment9/main/assignment9.json",
+				function(data) {
+					jsondata = JSON.parse(data);
+					str = JSON.stringify(jsondata);
+					document.getElementById('string').innerHTML = str;
+
+					strHTML= "<br>";
+					jsondata.forEach(function(song) {
+							strHTML += song.title + "<br>"
+							+ "Artist: " + song.artist + "<br>"
+							+ "Genre: " + song.genre + "<br>"
+							+ "Released " + song.released + "<br><br>";
+				})
+				document.getElementById('body').innerHTML = strHTML;
+		})
+
+
+
+
+$(document).ready(function() {
+	$('#button').click(function() {
+		newstrHTML= "<br>";
+		currentGenre = document.getElementById('genre').value;
+		filtered = jsondata.filter(function(song) {
+			return song.genre == currentGenre;
+		})
+
+		filtered.forEach(function(song) {
+				newstrHTML += song.title + "<br>"
+				+ "Artist: " + song.artist + "<br>"
+				+ "Genre: " + song.genre + "<br>"
+				+ "Released " + song.released + "<br><br>";
+			})
+			document.write(newstrHTML);
+
+	})
+	})
+
+
+
+
+
+</script>
+<label for="genre">Choose a genre:</label>
+<select name="genre" id="genre" form="genreform">
+	<option value="Pop Rock">Pop Rock</option>
+	<option value="Indie Rock">Indie Rock</option>
+	<option value="Alternative">Alternative</option>
+
+</select>
+
+<form id="genreform">
+	<input type="submit" id="button">
+</form>
+
+</body>
+</html>
